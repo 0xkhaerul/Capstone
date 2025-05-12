@@ -8,8 +8,8 @@ module.exports = {
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true, // membersihkan /dist sebelum build
+    path: path.resolve(__dirname, "public"), // Changed to 'public' directory
+    clean: true, // Clean the output directory before build
   },
   module: {
     rules: [
@@ -23,9 +23,9 @@ module.exports = {
           {
             loader: "html-loader",
             options: {
-              // Menonaktifkan pemrosesan URL pada html-loader
-              // Ini akan mencegah html-loader mencoba untuk memecahkan URL
-              // seperti favicon.png yang sudah ditangani oleh CopyWebpackPlugin
+              // Disable URL processing on html-loader
+              // This prevents html-loader from trying to resolve URLs
+              // like favicon.png that are already handled by CopyWebpackPlugin
               sources: false,
               minimize: false,
             },
@@ -43,9 +43,8 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, "src/public/"),
-          to: path.resolve(__dirname, "dist/"),
-          // Menambahkan opsi untuk menangani favicon
-          noErrorOnMissing: true,
+          to: path.resolve(__dirname, "public/"), // Ensure copy to public directory
+          noErrorOnMissing: true, // No error if source directory is missing
         },
       ],
     }),
